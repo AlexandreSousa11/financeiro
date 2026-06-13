@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financeiro Alexandre</title>
+    
+    <!-- Configuração do Aplicativo com o Ícone Correto -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Financeiro">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZpbmFuY2Vpcm8gQWxleGFuZHJlIiwKICAic2hvcnRfbmFtZSI6ICJGaW5hbmNlaXJvIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwYjBmMTkiLAogICJ0aGVtZV9jb2xvciI6ICIwYjBmMTkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJodHRwczovL2Nkbi1pY29ucy1wbmcuZmxhdGljb24uY29tLzUxMi8yODk2LzI4OTYwNzEucG5nIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICJ0eXBlIjogImltYWdlL3BuZyIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdCn0=">
+
     <style>
         :root {
             --bg-color: #0b0f19;
@@ -472,6 +479,7 @@
             </div>
         </header>
 
+        <!-- Indicadores Superiores -->
         <section class="cards-grid">
             <div class="card quinzena-1">
                 <h3>Recebo dia 05 (1ª Q)</h3>
@@ -508,6 +516,7 @@
             </div>
         </section>
 
+        <!-- Layout de Abas e Tabelas -->
         <main class="main-content">
             
             <section class="panel">
@@ -516,6 +525,7 @@
                     <button class="tab-btn" data-tab="receitas" onclick="alternarAba('receitas')">💰 Outras Receitas</button>
                 </div>
 
+                <!-- Formulário de Contas -->
                 <div id="tab-contas" class="tab-content active">
                     <form id="conta-form" onsubmit="salvarConta(event)">
                         <input type="hidden" id="conta-id">
@@ -540,6 +550,7 @@
                     </form>
                 </div>
 
+                <!-- Formulário de Ganhos Extras -->
                 <div id="tab-receitas" class="tab-content">
                     <form id="receita-form" onsubmit="salvarReceitaExtra(event)">
                         <div class="form-group">
@@ -569,6 +580,7 @@
                 </div>
             </section>
 
+            <!-- Tabela Principal -->
             <section class="panel">
                 <div class="panel-title">Contas a Pagar do Período</div>
                 <div class="table-responsive">
@@ -590,6 +602,7 @@
             </section>
         </main>
 
+        <!-- Resumo Inferior -->
         <section class="resume-section">
             <div class="panel-title" style="border: none; margin-bottom: 15px;">Resumo Financeiro do Mês</div>
             <div class="resume-grid">

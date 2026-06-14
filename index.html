@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financeiro Alexandre</title>
     
+    <!-- Configuração do Aplicativo (Forçando Novo Ícone Neon) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Financeiro">
     
+    <!-- Ícone Direto (Favicon e Apple) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='512' height='512'><rect width='100' height='100' rx='20' fill='%230b0f19'/><text x='50%25' y='68%25' font-family='sans-serif' font-weight='bold' font-size='60' fill='%2300ff87' text-anchor='middle' style='filter: drop-shadow(0px 0px 8px %2300ff87);'>$</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='512' height='512'><rect width='100' height='100' rx='20' fill='%230b0f19'/><text x='50%25' y='68%25' font-family='sans-serif' font-weight='bold' font-size='60' fill='%2300ff87' text-anchor='middle' style='filter: drop-shadow(0px 0px 8px %2300ff87);'>$</text></svg>">
     
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZpbmFuY2Vpcm8gQWxleGFuZHJlIiwKICAic2hvcnRfbmFtZSI6ICJGaW5hbmNlaXJvIiwKICAic3RhcnRvdXJsIjogIi4vP3Y9MyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBiMGYxOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwYjBmMTkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7dXRmOCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJyBmaWxsPSclMjMwYjBmMTknLz48dGV4dCB4PSc1MCUyNScgeT0nNjglMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nYm9sZCcgZm9udC1zaXplPSc2MCcgZmlsbD0nJTIzMDBmZjg3JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBzdHlsZT0nZmlsdGVyOiBkcm9wLXNoYWRvdygwcHggMHB4IDhweCAlMjMwMGZmODcpOyc+JDwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9">
+    <!-- Manifesto Atualizado v3 -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZpbmFuY2Vpcm8gQWxleGFuZHJlIiwKICAic2hvcnRfbmFtZSI6ICJGaW5hbmNlaXJvIiwKICAic3RhcnRvdXJsIjogIi4vP3Y9MyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBiMGYxOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwYjBmMTkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7dXRmOCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJyBmaWxsPSclMjMwYjBmMTknLz48dGV4dCB4PSc1MCUyNScgeT0nNjglMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nYm9sZCcgZm9udC1zaXplPSc2MCcgZmlsbD0nJTIzMDBmZjg3JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBzdHlsZT0nZmlsdGVyOiBkcm9wLXNoYWRvdygwcHggMHB4IDhweCAlMjMwMGZmODcpOyc+JDwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiPTEyeDUxMiIsCiAgICAgICJuZXR3b3JrX2ZsYWdzIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdCn0=">
 
+    <!-- Chart.js para os gráficos neon -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -316,6 +319,28 @@
             box-shadow: 0 0 5px rgba(0, 225, 255, 0.2);
         }
 
+        /* Checkbox de Conta Fixa */
+        .form-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .form-checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--neon-blue);
+            cursor: pointer;
+        }
+
+        .form-checkbox-group span {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
         /* Botões */
         .btn {
             display: inline-flex;
@@ -424,34 +449,30 @@
         .status-hoje { color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255, 223, 0, 0.3); font-weight: bold; }
         .status-emdia { color: var(--neon-blue); text-shadow: 0 0 8px rgba(0, 235, 255, 0.3); font-weight: bold; }
 
-        .btn-toggle-pago {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border-color);
-            color: var(--text-color);
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-        .btn-toggle-pago:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
         .actions-cell {
             display: flex;
-            gap: 12px;
+            gap: 14px;
+            align-items: center;
         }
 
         .btn-icon {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1.1rem;
-            padding: 2px;
+            font-size: 1.2rem;
+            padding: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
         }
 
+        .btn-icon:active {
+            transform: scale(0.85);
+        }
+
+        .btn-pay-toggle { color: var(--neon-green); }
+        .btn-pay-undo { color: var(--text-muted); }
         .btn-edit { color: var(--neon-blue); }
         .btn-delete { color: var(--neon-red); }
 
@@ -493,9 +514,7 @@
         .situation-positive { color: var(--neon-green); }
         .situation-negative { color: var(--neon-red); }
 
-        /* ==========================================================================
-           NOVOS ESTILOS: JANELA MODAL DE CONFIGURAÇÕES (DARK NEON)
-           ========================================================================== */
+        /* Modal de Configurações */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -581,7 +600,6 @@
             }
         }
 
-        /* Menu Lateral do Modal */
         .modal-sidebar {
             width: 100%;
             border-bottom: 1px solid var(--border-color);
@@ -641,7 +659,6 @@
             }
         }
 
-        /* Conteúdo do Modal */
         .modal-content-area {
             flex: 1;
             padding: 25px;
@@ -683,7 +700,6 @@
             }
         }
 
-        /* Grid de Médias */
         .medias-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -691,7 +707,6 @@
             margin-bottom: 20px;
         }
 
-        /* Lista de Meses Históricos */
         .history-list {
             display: flex;
             flex-direction: column;
@@ -712,7 +727,6 @@
             font-weight: 600;
         }
 
-        /* Área de Metas */
         .meta-card {
             background-color: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
@@ -752,7 +766,6 @@
             color: var(--text-muted);
         }
 
-        /* Aparência Box */
         .theme-select-box {
             display: flex;
             gap: 15px;
@@ -775,7 +788,6 @@
             color: var(--neon-blue);
         }
 
-        /* Gráficos Canvas */
         .chart-box {
             position: relative;
             width: 100%;
@@ -802,6 +814,7 @@
             </div>
         </header>
 
+        <!-- Indicadores Superiores -->
         <section class="cards-grid">
             <div class="card quinzena-1">
                 <h3>Recebo dia 05 (1ª Q)</h3>
@@ -838,6 +851,7 @@
             </div>
         </section>
 
+        <!-- Layout de Abas e Tabelas -->
         <main class="main-content">
             
             <section class="panel">
@@ -846,6 +860,7 @@
                     <button class="tab-btn" data-tab="receitas" onclick="alternarAba('receitas')">💰 Outras Receitas</button>
                 </div>
 
+                <!-- Formulário de Contas -->
                 <div id="tab-contas" class="tab-content active">
                     <form id="conta-form" onsubmit="salvarConta(event)">
                         <input type="hidden" id="conta-id">
@@ -865,11 +880,19 @@
                             <label>Quinzena</label>
                             <input type="text" id="conta-quinzena-previa" class="form-control" readonly style="opacity: 0.7;" placeholder="Definido pela data">
                         </div>
+                        
+                        <!-- Caixinha de Seleção para Conta Fixa -->
+                        <label class="form-checkbox-group" id="container-checkbox-fixa">
+                            <input type="checkbox" id="conta-fixa">
+                            <span>🔁 Conta Fixa (Replicar p/ próximos 12 meses)</span>
+                        </label>
+
                         <button type="submit" class="btn btn-primary" id="btn-salvar">Adicionar Conta</button>
                         <button type="button" class="btn btn-cancel" id="btn-cancelar" style="display: none;" onclick="resetarFormulario()">Cancelar Edição</button>
                     </form>
                 </div>
 
+                <!-- Formulário de Ganhos Extras -->
                 <div id="tab-receitas" class="tab-content">
                     <form id="receita-form" onsubmit="salvarReceitaExtra(event)">
                         <div class="form-group">
@@ -899,6 +922,7 @@
                 </div>
             </section>
 
+            <!-- Tabela Principal -->
             <section class="panel">
                 <div class="panel-title">Contas a Pagar do Período</div>
                 <div class="table-responsive">
@@ -909,9 +933,8 @@
                                 <th>Vencimento</th>
                                 <th>Quinzena</th>
                                 <th>Valor</th>
-                                <th>Pagamento</th>
                                 <th>Status</th>
-                                <th>Ações</th>
+                                <th style="text-align: center;">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="contas-tabela-body"></tbody>
@@ -920,6 +943,7 @@
             </section>
         </main>
 
+        <!-- Resumo Inferior -->
         <section class="resume-section">
             <div class="panel-title" style="border: none; margin-bottom: 15px;">Resumo Financeiro do Mês</div>
             <div class="resume-grid">
@@ -951,6 +975,7 @@
         </section>
     </div>
 
+    <!-- Modal Janela de Configurações -->
     <div class="modal-overlay" id="config-modal" onclick="fecharModalConfigExterno(event)">
         <div class="modal-container">
             <div class="modal-header">
@@ -969,7 +994,7 @@
                 </nav>
 
                 <div class="modal-content-area">
-                    
+                    <!-- Aba: Backup -->
                     <div id="subtab-backup" class="config-section active">
                         <h3>📥 Gerenciamento de Dados</h3>
                         <div class="backup-grid">
@@ -987,12 +1012,13 @@
                         </div>
                     </div>
 
+                    <!-- Aba: Histórico Financeiro -->
                     <div id="subtab-historico" class="config-section">
                         <h3>📅 Meses Registrados</h3>
-                        <div class="history-list" id="lista-historico-meses">
-                            </div>
+                        <div class="history-list" id="lista-historico-meses"></div>
                     </div>
 
+                    <!-- Aba: Média Financeira -->
                     <div id="subtab-medias" class="config-section">
                         <h3>📈 Médias Gerais de Todos os Períodos</h3>
                         <div class="medias-grid">
@@ -1012,6 +1038,7 @@
                         <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Cálculo baseado em todos os meses guardados no banco de dados.</p>
                     </div>
 
+                    <!-- Aba: Gráficos -->
                     <div id="subtab-graficos" class="config-section">
                         <h3>📊 Evolução Financeira</h3>
                         <div class="chart-box">
@@ -1019,6 +1046,7 @@
                         </div>
                     </div>
 
+                    <!-- Aba: Metas Financeiras -->
                     <div id="subtab-metas" class="config-section">
                         <h3>🎯 Sistema de Metas Financeiras</h3>
                         <form id="meta-form" onsubmit="adicionarMeta(event)" style="margin-bottom: 20px;">
@@ -1029,10 +1057,10 @@
                             </div>
                             <button type="submit" class="btn btn-primary" style="padding:8px;">🎯 Criar Meta</button>
                         </form>
-                        <div id="lista-metas-container">
-                            </div>
+                        <div id="lista-metas-container"></div>
                     </div>
 
+                    <!-- Aba: Aparência -->
                     <div id="subtab-aparencia" class="config-section">
                         <h3>🌙 Personalização do Sistema</h3>
                         <div class="theme-select-box">
@@ -1040,22 +1068,22 @@
                                 <div>🌙</div>
                                 <span>Dark Neon (Ativo)</span>
                             </div>
-                            <div class="theme-option" style="opacity: 0.4; cursor: not-allowed;" title="Em desenvolvimento">
+                            <div class="theme-option" style="opacity: 0.4; cursor: not-allowed;">
                                 <div>☀️</div>
                                 <span>Light Theme (Futuro)</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Aba: Sobre -->
                     <div id="subtab-sobre" class="config-section">
                         <h3>ℹ️ Informações</h3>
                         <div class="card" style="text-align: center; border: 1px solid var(--border-color)">
                             <h2 style="font-size: 1.6rem; color: var(--neon-blue); margin-bottom:10px;">Financeiro Alexandre</h2>
-                            <p style="color: var(--text-color); font-weight:600; margin-bottom:5px;">Versão 1.0</p>
+                            <p style="color: var(--text-color); font-weight:600; margin-bottom:5px;">Versão 1.1</p>
                             <p style="color: var(--text-muted); font-size:0.85rem;">Desenvolvido com foco em velocidade, controle quinzenal e painel escuro de alta performance.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -1065,7 +1093,7 @@
         let contas = [];
         let receitasExtras = [];
         let metas = [];
-        let mixChartInstance = null; // Instância do Chart.js
+        let mixChartInstance = null;
         
         window.addEventListener('DOMContentLoaded', () => {
             definirMesAtual();
@@ -1087,7 +1115,6 @@
             document.getElementById(`tab-${nomeAba}`).classList.add('active');
         }
 
-        /* Controle de Sub-Abas Internas do Modal */
         function alternarSubAba(nomeSubAba) {
             document.querySelectorAll('.menu-item-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.config-section').forEach(content => content.classList.remove('active'));
@@ -1102,7 +1129,7 @@
 
         function abrirModalConfig() {
             document.getElementById('config-modal').classList.add('active');
-            alternarSubAba('backup'); // Abre por padrão no Backup
+            alternarSubAba('backup');
         }
 
         function fecharModalConfig() {
@@ -1143,25 +1170,41 @@
             localStorage.setItem('fin_alexandre_extras', JSON.stringify(receitasExtras));
             localStorage.setItem('fin_alexandre_metas', JSON.stringify(metas));
             
-            salvarHistoricoMensalCompilado(mesFiltro, dia05, dia20);
+            compilarHistoricoGeralCompleto();
         }
 
-        /* Agrega dados sintetizados por mês para cálculos de médias/gráficos */
-        function salvarHistoricoMensalCompilado(mes, d05, d20) {
-            let historicoGlobal = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
+        function compilarHistoricoGeralCompleto() {
+            let historicoGlobal = {};
             
-            const extrasDoMes = receitasExtras.filter(r => r.mes === mes).reduce((s, r) => s + r.valor, 0);
-            const totalRec = d05 + d20 + extrasDoMes;
-            
-            const contasDoMes = contas.filter(c => c.data.substring(0, 7) === mes);
-            const totalDesp = contasDoMes.reduce((s, c) => s + c.valor, 0);
-            const totalPago = contasDoMes.filter(c => c.pago).reduce((s, c) => s + c.valor, 0);
-            
-            historicoGlobal[mes] = {
-                receitas: totalRec,
-                despesas: totalDesp,
-                saldo: totalRec - totalPago
-            };
+            contas.forEach(c => {
+                const m = c.data.substring(0, 7);
+                if(!historicoGlobal[m]) historicoGlobal[m] = { receitas: 0, despesas: 0, saldo: 0, pago: 0 };
+                historicoGlobal[m].despesas += c.valor;
+                if(c.pago) historicoGlobal[m].pago += c.valor;
+            });
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('fin_alexandre_receitas_')) {
+                    const m = key.replace('fin_alexandre_receitas_', '');
+                    const recs = JSON.parse(localStorage.getItem(key));
+                    if(!historicoGlobal[m]) historicoGlobal[m] = { receitas: 0, despesas: 0, saldo: 0, pago: 0 };
+                    historicoGlobal[m].receitas += (recs.dia05 + recs.dia20);
+                }
+            }
+
+            receitasExtras.forEach(r => {
+                if(!historicoGlobal[r.mes]) historicoGlobal[r.mes] = { ...historicoGlobal[r.mes], receitas: 0, despesas: 0, saldo: 0, pago: 0 };
+                historicoGlobal[r.mes].receitas += r.valor;
+            });
+
+            Object.keys(historicoGlobal).forEach(m => {
+                if(historicoGlobal[m].receitas === 0) {
+                    historicoGlobal[m].receitas = 5200;
+                }
+                historicoGlobal[m].saldo = historicoGlobal[m].receitas - historicoGlobal[m].pago;
+            });
+
             localStorage.setItem('fin_alexandre_historico_calculado', JSON.stringify(historicoGlobal));
         }
 
@@ -1186,7 +1229,7 @@
         }
 
         function excluirReceitaExtra(id) {
-            receitasExtras = receitasExtras.filter(r => r.id !== id);
+            receitasExtras = recipesExtras = receitasExtras.filter(r => r.id !== id);
             salvarDadosNoStorage();
             renderizarTabelaReceitasExtras();
             calcularFinanceiro();
@@ -1228,6 +1271,8 @@
             const nome = document.getElementById('conta-nome').value.trim();
             const dataStr = document.getElementById('conta-data').value;
             const valor = parseFloat(document.getElementById('conta-valor').value) || 0;
+            const ehFixa = document.getElementById('conta-fixa').checked;
+            
             const dia = parseInt(dataStr.split('-')[2]);
             const quinzena = (dia <= 15) ? 1 : 2;
 
@@ -1235,7 +1280,35 @@
                 const index = contas.findIndex(c => c.id == id);
                 if (index !== -1) contas[index] = { ...contas[index], nome, data: dataStr, valor, quinzena };
             } else {
-                contas.push({ id: Date.now(), nome, data: dataStr, valor, quinzena, pago: false });
+                if (ehFixa) {
+                    const idBaseComum = Date.now();
+                    contas.push({ id: idBaseComum, nome, data: dataStr, valor, quinzena, pago: false });
+
+                    const partesData = dataStr.split('-');
+                    let anoCorrente = parseInt(partesData[0]);
+                    let mesCorrente = parseInt(partesData[1]) - 1;
+                    let diaCorrente = parseInt(partesData[2]);
+
+                    for (let i = 1; i <= 12; i++) {
+                        let novaData = new Date(anoCorrente, mesCorrente + i, diaCorrente);
+                        
+                        let anoString = novaData.getFullYear();
+                        let mesString = String(novaData.getMonth() + 1).padStart(2, '0');
+                        let diaString = String(novaData.getDate()).padStart(2, '0');
+                        let dataFinalGerada = `${anoString}-${mesString}-${diaString}`;
+                        
+                        contas.push({
+                            id: idBaseComum + i,
+                            nome: nome,
+                            data: dataFinalGerada,
+                            valor: valor,
+                            quinzena: (novaData.getDate() <= 15) ? 1 : 2,
+                            pago: false
+                        });
+                    }
+                } else {
+                    contas.push({ id: Date.now(), nome, data: dataStr, valor, quinzena, pago: false });
+                }
             }
 
             salvarDadosNoStorage();
@@ -1269,6 +1342,9 @@
             document.getElementById('conta-nome').value = conta.nome;
             document.getElementById('conta-data').value = conta.data;
             document.getElementById('conta-valor').value = conta.valor;
+            
+            document.getElementById('container-checkbox-fixa').style.display = 'none';
+            
             atualizarQuinzenaPrevia();
             document.getElementById('btn-salvar').innerText = "Salvar Alterações";
             document.getElementById('btn-cancelar').style.display = "block";
@@ -1278,6 +1354,7 @@
             document.getElementById('conta-id').value = "";
             document.getElementById('conta-form').reset();
             document.getElementById('conta-quinzena-previa').value = "";
+            document.getElementById('container-checkbox-fixa').style.display = 'flex';
             document.getElementById('btn-salvar').innerText = "Adicionar Conta";
             document.getElementById('btn-cancelar').style.display = "none";
         }
@@ -1308,24 +1385,30 @@
             const contasFiltradas = contas.filter(c => c.data.substring(0, 7) === mesFiltro);
 
             if (contasFiltradas.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Nenhuma conta.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Nenhuma conta cadastrada para este mês.</td></tr>`;
                 return;
             }
 
             contasFiltradas.sort((a,b) => new Date(a.data) - new Date(b.data)).forEach(conta => {
                 const status = obterStatusConta(conta);
                 const tr = document.createElement('tr');
+                
+                // Define o botão de pagamento dinâmico baseado no status atual
+                const botaoPagamento = conta.pago 
+                    ? `<button class="btn-icon btn-pay-undo" onclick="alternarPagamento(${conta.id})" title="Mudar para Pendente">🔄</button>`
+                    : `<button class="btn-icon btn-pay-toggle" onclick="alternarPagamento(${conta.id})" title="Marcar como Pago">✔️</button>`;
+
                 tr.innerHTML = `
                     <td><strong>${conta.nome}</strong></td>
                     <td>${formatarDataBR(conta.data)}</td>
                     <td><span class="badge ${conta.quinzena === 1 ? 'badge-q1' : 'badge-q2'}">${conta.quinzena === 1 ? '1ª Quinzena' : '2ª Quinzena'}</span></td>
                     <td style="font-weight: 600;">${formatarMoeda(conta.valor)}</td>
-                    <td><button class="btn-toggle-pago" onclick="alternarPagamento(${conta.id})">${conta.pago ? '✅ Pago' : '❌ Pendente'}</button></td>
                     <td><span class="${status.classe}">${status.texto}</span></td>
                     <td>
-                        <div class="actions-cell">
-                            <button class="btn-icon btn-edit" onclick="prepararEdicao(${conta.id})">✏</button>
-                            <button class="btn-icon btn-delete" onclick="excluirConta(${conta.id})">🗑</button>
+                        <div class="actions-cell" style="justify-content: center;">
+                            ${botaoPagamento}
+                            <button class="btn-icon btn-edit" onclick="prepararEdicao(${conta.id})" title="Editar">✏️</button>
+                            <button class="btn-icon btn-delete" onclick="excluirConta(${conta.id})" title="Excluir">🗑️</button>
                         </div>
                     </td>
                 `;
@@ -1366,7 +1449,7 @@
                 }
             });
 
-            const saldoDisponivel = totalReceitasGerais - valorPago;
+            const saldoDisponivel = totalReceitasGerais - despesasTotais;
 
             document.getElementById('qtd-pagas').innerText = pagas;
             document.getElementById('qtd-atrasadas').innerText = atrasadas;
@@ -1394,12 +1477,8 @@
             salvarDadosNoStorage();
         }
 
-        /* ==========================================================================
-           NOVAS FUNÇÕES: LÓGICAS DE CONFIGURAÇÃO (BACKUP, MEDIAS, METAS, GRAFICOS)
-           ========================================================================== */
-        
-        // 1. BACKUP (DOWNLOAD JSON)
-        function executarBackup() {
+        // BACKUP
+        function ejecutarBackup() {
             const objetoExportacao = {};
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
@@ -1407,11 +1486,9 @@
                     objetoExportacao[key] = localStorage.getItem(key);
                 }
             }
-            
             const dataStr = new Date().toISOString().substring(0, 10);
             const dataBlob = new Blob([JSON.stringify(objetoExportacao, null, 2)], {type : 'application/json'});
             const urlDescarga = URL.createObjectURL(dataBlob);
-            
             const linkAuxiliar = document.createElement('a');
             linkAuxiliar.href = urlDescarga;
             linkAuxiliar.download = `backup-financeiro-${dataStr}.json`;
@@ -1419,11 +1496,10 @@
             URL.revokeObjectURL(urlDescarga);
         }
 
-        // 2. RESTAURAR BACKUP (UPLOAD JSON)
+        // RESTAURAR BACKUP
         function executarRestauracao(event) {
             const arquivo = event.target.files[0];
             if (!arquivo) return;
-
             const leitor = new FileReader();
             leitor.onload = function(e) {
                 try {
@@ -1433,16 +1509,16 @@
                             localStorage.setItem(chave, dadosImportados[chave]);
                         }
                     });
-                    alert("Dados importados e restaurados com sucesso!");
+                    alert("Dados importados com sucesso!");
                     window.location.reload();
                 } catch (err) {
-                    alert("Erro ao ler o arquivo JSON. Certifique-se de que é um backup válido.");
+                    alert("Erro ao ler o arquivo JSON.");
                 }
             };
             leitor.readAsText(arquivo);
         }
 
-        // 3. MEDIAS GERAIS
+        // MEDIAS
         function renderizarMediasGerais() {
             const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
             const chaves = Object.keys(hist);
@@ -1467,11 +1543,10 @@
             document.getElementById('media-saldo').innerText = formatarMoeda(sSal / quant);
         }
 
-        // 4. HISTÓRICO DE MESES
+        // HISTORICO
         function renderizarHistoricoMeses() {
             const container = document.getElementById('lista-historico-meses');
             container.innerHTML = '';
-            
             const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
             const mesesOrdenados = Object.keys(hist).sort().reverse();
 
@@ -1490,7 +1565,7 @@
                 div.innerHTML = `
                     <div>
                         <strong>${mesFormatadoBR}</strong> 
-                        <span style="margin-left:15px; font-size:0.85rem; color:var(--text-muted);">Rec: ${formatarMoeda(item.receitas)}</span>
+                        <span style="margin-left:15px; font-size:0.85rem; color:var(--text-muted);">Despesas: ${formatarMoeda(item.despesas)}</span>
                     </div>
                     <button class="btn-toggle-pago" style="border-color:var(--neon-blue); color:var(--neon-blue);" onclick="carregarMesEspecifico('${m}')">👁 Ver Mês</button>
                 `;
@@ -1504,16 +1579,14 @@
             fecharModalConfig();
         }
 
-        // 5. METAS FINANCEIRAS
+        // METAS
         function adicionarMeta(e) {
             e.preventDefault();
             const nome = document.getElementById('meta-nome').value.trim();
             const objetivo = parseFloat(document.getElementById('meta-objetivo').value) || 0;
             const atual = parseFloat(document.getElementById('meta-atual').value) || 0;
-
             metas.push({ id: Date.now(), nome, objetivo, atual });
             document.getElementById('meta-form').reset();
-            
             salvarDadosNoStorage();
             renderizarMetas();
         }
@@ -1527,16 +1600,13 @@
         function renderizarMetas() {
             const container = document.getElementById('lista-metas-container');
             container.innerHTML = '';
-
             if (metas.length === 0) {
                 container.innerHTML = `<p style="text-align:center; font-size:0.9rem; color:var(--text-muted);">Nenhuma meta criada ainda.</p>`;
                 return;
             }
-
             metas.forEach(m => {
                 const percentual = Math.min((m.atual / m.objetivo) * 100, 100).toFixed(1);
                 const restante = Math.max(m.objetivo - m.atual, 0);
-
                 const div = document.createElement('div');
                 div.className = 'meta-card';
                 div.innerHTML = `
@@ -1559,7 +1629,7 @@
             });
         }
 
-        // 6. EVOLUÇÃO EM GRÁFICOS (CHART.JS)
+        // GRAFICOS
         function carregarEvolucaoGraficos() {
             const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
             const mesesEixoX = Object.keys(hist).sort();
@@ -1590,7 +1660,7 @@
                     labels: labelsFormatadas,
                     datasets: [
                         {
-                            label: 'Saldo Final',
+                            label: 'Saldo Disponível',
                             type: 'line',
                             data: dadosSaldos,
                             borderColor: '#00ff87',

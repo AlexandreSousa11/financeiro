@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,17 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financeiro Alexandre</title>
     
-    <!-- Configuração do Aplicativo (Forçando Novo Ícone Neon) -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Financeiro">
     
-    <!-- Ícone Direto (Favicon e Apple) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='512' height='512'><rect width='100' height='100' rx='20' fill='%230b0f19'/><text x='50%25' y='68%25' font-family='sans-serif' font-weight='bold' font-size='60' fill='%2300ff87' text-anchor='middle' style='filter: drop-shadow(0px 0px 8px %2300ff87);'>$</text></svg>">
     <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='512' height='512'><rect width='100' height='100' rx='20' fill='%230b0f19'/><text x='50%25' y='68%25' font-family='sans-serif' font-weight='bold' font-size='60' fill='%2300ff87' text-anchor='middle' style='filter: drop-shadow(0px 0px 8px %2300ff87);'>$</text></svg>">
     
-    <!-- Manifesto Atualizado v3 para Forçar Atualização -->
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZpbmFuY2Vpcm8gQWxleGFuZHJlIiwKICAic2hvcnRfbmFtZSI6ICJGaW5hbmNlaXJvIiwKICAic3RhcnRvdXJsIjogIi4vP3Y9MyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBiMGYxOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwYjBmMTkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7dXRmOCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJz48cmVjdCB3aWR0aD0nMTAwJyBoZWlnaHQ9JzEwMCcgcng9JzIwJyBmaWxsPSclMjMwYjBmMTknLz48dGV4dCB4PSc1MCUyNScgeT0nNjglMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJyBmb250LXdlaWdodD0nYm9sZCcgZm9udC1zaXplPSc2MCcgZmlsbD0nJTIzMDBmZjg3JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBzdHlsZT0nZmlsdGVyOiBkcm9wLXNoYWRvdygwcHggMHB4IDhweCAlMjMwMGZmODcpOyc+JDwvdGV4dD48L3N2Zz4iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXQp9">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
@@ -30,6 +30,7 @@
             --neon-blue: #00e5ff;
             --neon-yellow: #ffdf00;
             --neon-red: #ff3860;
+            --neon-purple: #9d4edd;
         }
 
         * {
@@ -58,6 +59,7 @@
             flex-direction: column;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
 
         @media (min-width: 768px) {
@@ -77,6 +79,29 @@
 
         header h1 span {
             color: var(--neon-blue);
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-settings {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-settings:hover {
+            color: var(--neon-blue);
+            transform: rotate(45deg);
         }
 
         .filter-container {
@@ -468,6 +493,295 @@
         .situation-positive { color: var(--neon-green); }
         .situation-negative { color: var(--neon-red); }
 
+        /* ==========================================================================
+           NOVOS ESTILOS: JANELA MODAL DE CONFIGURAÇÕES (DARK NEON)
+           ========================================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 7, 12, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 15px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.15);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.4rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--neon-red);
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .modal-body {
+                flex-direction: row;
+            }
+        }
+
+        /* Menu Lateral do Modal */
+        .modal-sidebar {
+            width: 100%;
+            border-bottom: 1px solid var(--border-color);
+            background-color: rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 768px) {
+            .modal-sidebar {
+                width: 220px;
+                border-bottom: none;
+                border-right: 1px solid var(--border-color);
+                flex-direction: column;
+                overflow-x: visible;
+            }
+        }
+
+        .menu-item-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: auto;
+        }
+
+        @media (min-width: 768px) {
+            .menu-item-btn {
+                width: 100%;
+                border-left: 3px solid transparent;
+            }
+        }
+
+        .menu-item-btn:hover {
+            color: var(--text-color);
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .menu-item-btn.active {
+            color: var(--neon-blue);
+            background-color: rgba(0, 229, 255, 0.05);
+        }
+
+        @media (min-width: 768px) {
+            .menu-item-btn.active {
+                border-left: 3px solid var(--neon-blue);
+            }
+        }
+
+        /* Conteúdo do Modal */
+        .modal-content-area {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            max-height: 65vh;
+        }
+
+        @media (min-width: 768px) {
+            .modal-content-area {
+                max-height: 75vh;
+            }
+        }
+
+        .config-section {
+            display: none;
+        }
+
+        .config-section.active {
+            display: block;
+        }
+
+        .config-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .backup-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 576px) {
+            .backup-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Grid de Médias */
+        .medias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Lista de Meses Históricos */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px 18px;
+            border-radius: 8px;
+        }
+
+        .history-item span {
+            font-weight: 600;
+        }
+
+        /* Área de Metas */
+        .meta-card {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .meta-header-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .progress-bar-bg {
+            background-color: var(--bg-color);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.5);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .meta-footer-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Aparência Box */
+        .theme-select-box {
+            display: flex;
+            gap: 15px;
+        }
+
+        .theme-option {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .theme-option.active {
+            border-color: var(--neon-blue);
+            background-color: rgba(0, 229, 255, 0.05);
+            color: var(--neon-blue);
+        }
+
+        /* Gráficos Canvas */
+        .chart-box {
+            position: relative;
+            width: 100%;
+            height: 320px;
+        }
+
         @media (max-width: 768px) {
             body { padding: 10px; }
             .main-content { grid-template-columns: 1fr; }
@@ -479,13 +793,15 @@
     <div class="container">
         <header>
             <h1>Financeiro <span>Alexandre</span></h1>
-            <div class="filter-container">
-                <label for="filtro-mes">Mês de Referência:</label>
-                <input type="month" id="filtro-mes" class="form-control" style="width: auto; padding: 5px 10px;" onchange="filtrarPorMes()">
+            <div class="header-controls">
+                <div class="filter-container">
+                    <label for="filtro-mes">Mês de Referência:</label>
+                    <input type="month" id="filtro-mes" class="form-control" style="width: auto; padding: 5px 10px;" onchange="filtrarPorMes()">
+                </div>
+                <button class="btn-settings" onclick="abrirModalConfig()" title="Configurações do Aplicativo">⚙️</button>
             </div>
         </header>
 
-        <!-- Indicadores Superiores -->
         <section class="cards-grid">
             <div class="card quinzena-1">
                 <h3>Recebo dia 05 (1ª Q)</h3>
@@ -522,7 +838,6 @@
             </div>
         </section>
 
-        <!-- Layout de Abas e Tabelas -->
         <main class="main-content">
             
             <section class="panel">
@@ -531,7 +846,6 @@
                     <button class="tab-btn" data-tab="receitas" onclick="alternarAba('receitas')">💰 Outras Receitas</button>
                 </div>
 
-                <!-- Formulário de Contas -->
                 <div id="tab-contas" class="tab-content active">
                     <form id="conta-form" onsubmit="salvarConta(event)">
                         <input type="hidden" id="conta-id">
@@ -556,7 +870,6 @@
                     </form>
                 </div>
 
-                <!-- Formulário de Ganhos Extras -->
                 <div id="tab-receitas" class="tab-content">
                     <form id="receita-form" onsubmit="salvarReceitaExtra(event)">
                         <div class="form-group">
@@ -586,7 +899,6 @@
                 </div>
             </section>
 
-            <!-- Tabela Principal -->
             <section class="panel">
                 <div class="panel-title">Contas a Pagar do Período</div>
                 <div class="table-responsive">
@@ -608,7 +920,6 @@
             </section>
         </main>
 
-        <!-- Resumo Inferior -->
         <section class="resume-section">
             <div class="panel-title" style="border: none; margin-bottom: 15px;">Resumo Financeiro do Mês</div>
             <div class="resume-grid">
@@ -640,9 +951,121 @@
         </section>
     </div>
 
+    <div class="modal-overlay" id="config-modal" onclick="fecharModalConfigExterno(event)">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2>⚙️ Configurações do Aplicativo</h2>
+                <button class="modal-close" onclick="fecharModalConfig()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <nav class="modal-sidebar">
+                    <button class="menu-item-btn active" data-subtab="backup" onclick="alternarSubAba('backup')">💾 Backup</button>
+                    <button class="menu-item-btn" data-subtab="historico" onclick="alternarSubAba('historico')">📅 Histórico</button>
+                    <button class="menu-item-btn" data-subtab="medias" onclick="alternarSubAba('medias')">📈 Médias</button>
+                    <button class="menu-item-btn" data-subtab="graficos" onclick="alternarSubAba('graficos')">📊 Gráficos</button>
+                    <button class="menu-item-btn" data-subtab="metas" onclick="alternarSubAba('metas')">🎯 Metas</button>
+                    <button class="menu-item-btn" data-subtab="aparencia" onclick="alternarSubAba('aparencia')">🌙 Aparência</button>
+                    <button class="menu-item-btn" data-subtab="sobre" onclick="alternarSubAba('sobre')">ℹ️ Sobre</button>
+                </nav>
+
+                <div class="modal-content-area">
+                    
+                    <div id="subtab-backup" class="config-section active">
+                        <h3>📥 Gerenciamento de Dados</h3>
+                        <div class="backup-grid">
+                            <div class="card" style="border: 1px solid rgba(0, 229, 255, 0.2);">
+                                <h4 style="margin-bottom:10px; color:var(--neon-blue);">Fazer Backup</h4>
+                                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px;">Baixe todos os seus dados estruturados em formato JSON.</p>
+                                <button class="btn btn-primary" onclick="executarBackup()">📥 Exportar JSON</button>
+                            </div>
+                            <div class="card" style="border: 1px solid rgba(255, 223, 0, 0.2);">
+                                <h4 style="margin-bottom:10px; color:var(--neon-yellow);">Restaurar Backup</h4>
+                                <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px;">Importe seus arquivos anteriores para restaurar as finanças.</p>
+                                <input type="file" id="import-file" accept=".json" style="display:none" onchange="executarRestauracao(event)">
+                                <button class="btn btn-success" onclick="document.getElementById('import-file').click()">📤 Importar JSON</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subtab-historico" class="config-section">
+                        <h3>📅 Meses Registrados</h3>
+                        <div class="history-list" id="lista-historico-meses">
+                            </div>
+                    </div>
+
+                    <div id="subtab-medias" class="config-section">
+                        <h3>📈 Médias Gerais de Todos os Períodos</h3>
+                        <div class="medias-grid">
+                            <div class="card mini-indicator" style="border: 1px solid rgba(255, 223, 0, 0.2)">
+                                <h3 style="color:var(--neon-yellow)">Média de Receitas</h3>
+                                <div class="display-value" id="media-receitas" style="font-size:1.3rem;">R$ 0,00</div>
+                            </div>
+                            <div class="card mini-indicator" style="border: 1px solid rgba(252, 252, 252, 0.2)">
+                                <h3 style="color:var(--text-color)">Média de Despesas</h3>
+                                <div class="display-value" id="media-despesas" style="font-size:1.3rem;">R$ 0,00</div>
+                            </div>
+                            <div class="card mini-indicator" style="border: 1px solid rgba(0, 255, 135, 0.2)">
+                                <h3 style="color:var(--neon-green)">Média de Saldo</h3>
+                                <div class="display-value" id="media-saldo" style="font-size:1.3rem;">R$ 0,00</div>
+                            </div>
+                        </div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Cálculo baseado em todos os meses guardados no banco de dados.</p>
+                    </div>
+
+                    <div id="subtab-graficos" class="config-section">
+                        <h3>📊 Evolução Financeira</h3>
+                        <div class="chart-box">
+                            <canvas id="financeiroChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div id="subtab-metas" class="config-section">
+                        <h3>🎯 Sistema de Metas Financeiras</h3>
+                        <form id="meta-form" onsubmit="adicionarMeta(event)" style="margin-bottom: 20px;">
+                            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom:10px;">
+                                <input type="text" id="meta-nome" class="form-control" placeholder="Nome da Meta" required>
+                                <input type="number" id="meta-objetivo" class="form-control" placeholder="Alvo (R$)" step="0.01" required>
+                                <input type="number" id="meta-atual" class="form-control" placeholder="Atual (R$)" step="0.01" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="padding:8px;">🎯 Criar Meta</button>
+                        </form>
+                        <div id="lista-metas-container">
+                            </div>
+                    </div>
+
+                    <div id="subtab-aparencia" class="config-section">
+                        <h3>🌙 Personalização do Sistema</h3>
+                        <div class="theme-select-box">
+                            <div class="theme-option active">
+                                <div>🌙</div>
+                                <span>Dark Neon (Ativo)</span>
+                            </div>
+                            <div class="theme-option" style="opacity: 0.4; cursor: not-allowed;" title="Em desenvolvimento">
+                                <div>☀️</div>
+                                <span>Light Theme (Futuro)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subtab-sobre" class="config-section">
+                        <h3>ℹ️ Informações</h3>
+                        <div class="card" style="text-align: center; border: 1px solid var(--border-color)">
+                            <h2 style="font-size: 1.6rem; color: var(--neon-blue); margin-bottom:10px;">Financeiro Alexandre</h2>
+                            <p style="color: var(--text-color); font-weight:600; margin-bottom:5px;">Versão 1.0</p>
+                            <p style="color: var(--text-muted); font-size:0.85rem;">Desenvolvido com foco em velocidade, controle quinzenal e painel escuro de alta performance.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         let contas = [];
         let receitasExtras = [];
+        let metas = [];
+        let mixChartInstance = null; // Instância do Chart.js
         
         window.addEventListener('DOMContentLoaded', () => {
             definirMesAtual();
@@ -664,6 +1087,32 @@
             document.getElementById(`tab-${nomeAba}`).classList.add('active');
         }
 
+        /* Controle de Sub-Abas Internas do Modal */
+        function alternarSubAba(nomeSubAba) {
+            document.querySelectorAll('.menu-item-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.config-section').forEach(content => content.classList.remove('active'));
+            document.querySelector(`.menu-item-btn[data-subtab="${nomeSubAba}"]`).classList.add('active');
+            document.getElementById(`subtab-${nomeSubAba}`).classList.add('active');
+
+            if(nomeSubAba === 'medias') renderizarMediasGerais();
+            if(nomeSubAba === 'historico') renderizarHistoricoMeses();
+            if(nomeSubAba === 'graficos') carregarEvolucaoGraficos();
+            if(nomeSubAba === 'metas') renderizarMetas();
+        }
+
+        function abrirModalConfig() {
+            document.getElementById('config-modal').classList.add('active');
+            alternarSubAba('backup'); // Abre por padrão no Backup
+        }
+
+        function fecharModalConfig() {
+            document.getElementById('config-modal').classList.remove('active');
+        }
+
+        function fecharModalConfigExterno(e) {
+            if(e.target.id === 'config-modal') fecharModalConfig();
+        }
+
         function carregarDados() {
             const mesFiltro = document.getElementById('filtro-mes').value;
             const receitasSalvas = JSON.parse(localStorage.getItem(`fin_alexandre_receitas_${mesFiltro}`));
@@ -678,6 +1127,7 @@
 
             contas = JSON.parse(localStorage.getItem('fin_alexandre_contas_v2')) || [];
             receitasExtras = JSON.parse(localStorage.getItem('fin_alexandre_extras')) || [];
+            metas = JSON.parse(localStorage.getItem('fin_alexandre_metas')) || [];
 
             renderizarTabelaReceitasExtras();
             renderizarTabela();
@@ -691,6 +1141,28 @@
             localStorage.setItem(`fin_alexandre_receitas_${mesFiltro}`, JSON.stringify({ dia05, dia20 }));
             localStorage.setItem('fin_alexandre_contas_v2', JSON.stringify(contas));
             localStorage.setItem('fin_alexandre_extras', JSON.stringify(receitasExtras));
+            localStorage.setItem('fin_alexandre_metas', JSON.stringify(metas));
+            
+            salvarHistoricoMensalCompilado(mesFiltro, dia05, dia20);
+        }
+
+        /* Agrega dados sintetizados por mês para cálculos de médias/gráficos */
+        function salvarHistoricoMensalCompilado(mes, d05, d20) {
+            let historicoGlobal = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
+            
+            const extrasDoMes = receitasExtras.filter(r => r.mes === mes).reduce((s, r) => s + r.valor, 0);
+            const totalRec = d05 + d20 + extrasDoMes;
+            
+            const contasDoMes = contas.filter(c => c.data.substring(0, 7) === mes);
+            const totalDesp = contasDoMes.reduce((s, c) => s + c.valor, 0);
+            const totalPago = contasDoMes.filter(c => c.pago).reduce((s, c) => s + c.valor, 0);
+            
+            historicoGlobal[mes] = {
+                receitas: totalRec,
+                despesas: totalDesp,
+                saldo: totalRec - totalPago
+            };
+            localStorage.setItem('fin_alexandre_historico_calculado', JSON.stringify(historicoGlobal));
         }
 
         function filtrarPorMes() {
@@ -920,6 +1392,241 @@
             }
 
             salvarDadosNoStorage();
+        }
+
+        /* ==========================================================================
+           NOVAS FUNÇÕES: LÓGICAS DE CONFIGURAÇÃO (BACKUP, MEDIAS, METAS, GRAFICOS)
+           ========================================================================== */
+        
+        // 1. BACKUP (DOWNLOAD JSON)
+        function executarBackup() {
+            const objetoExportacao = {};
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('fin_alexandre_')) {
+                    objetoExportacao[key] = localStorage.getItem(key);
+                }
+            }
+            
+            const dataStr = new Date().toISOString().substring(0, 10);
+            const dataBlob = new Blob([JSON.stringify(objetoExportacao, null, 2)], {type : 'application/json'});
+            const urlDescarga = URL.createObjectURL(dataBlob);
+            
+            const linkAuxiliar = document.createElement('a');
+            linkAuxiliar.href = urlDescarga;
+            linkAuxiliar.download = `backup-financeiro-${dataStr}.json`;
+            linkAuxiliar.click();
+            URL.revokeObjectURL(urlDescarga);
+        }
+
+        // 2. RESTAURAR BACKUP (UPLOAD JSON)
+        function executarRestauracao(event) {
+            const arquivo = event.target.files[0];
+            if (!arquivo) return;
+
+            const leitor = new FileReader();
+            leitor.onload = function(e) {
+                try {
+                    const dadosImportados = JSON.parse(e.target.result);
+                    Object.keys(dadosImportados).forEach(chave => {
+                        if (chave.startsWith('fin_alexandre_')) {
+                            localStorage.setItem(chave, dadosImportados[chave]);
+                        }
+                    });
+                    alert("Dados importados e restaurados com sucesso!");
+                    window.location.reload();
+                } catch (err) {
+                    alert("Erro ao ler o arquivo JSON. Certifique-se de que é um backup válido.");
+                }
+            };
+            leitor.readAsText(arquivo);
+        }
+
+        // 3. MEDIAS GERAIS
+        function renderizarMediasGerais() {
+            const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
+            const chaves = Object.keys(hist);
+            const quant = chaves.length;
+
+            if (quant === 0) {
+                document.getElementById('media-receitas').innerText = "R$ 0,00";
+                document.getElementById('media-despesas').innerText = "R$ 0,00";
+                document.getElementById('media-saldo').innerText = "R$ 0,00";
+                return;
+            }
+
+            let sRec = 0, sDes = 0, sSal = 0;
+            chaves.forEach(m => {
+                sRec += hist[m].receitas || 0;
+                sDes += hist[m].despesas || 0;
+                sSal += hist[m].saldo || 0;
+            });
+
+            document.getElementById('media-receitas').innerText = formatarMoeda(sRec / quant);
+            document.getElementById('media-despesas').innerText = formatarMoeda(sDes / quant);
+            document.getElementById('media-saldo').innerText = formatarMoeda(sSal / quant);
+        }
+
+        // 4. HISTÓRICO DE MESES
+        function renderizarHistoricoMeses() {
+            const container = document.getElementById('lista-historico-meses');
+            container.innerHTML = '';
+            
+            const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
+            const mesesOrdenados = Object.keys(hist).sort().reverse();
+
+            if (mesesOrdenados.length === 0) {
+                container.innerHTML = `<p style="text-align:center; font-size:0.9rem; color:var(--text-muted);">Nenhum mês histórico registrado.</p>`;
+                return;
+            }
+
+            mesesOrdenados.forEach(m => {
+                const item = hist[m];
+                const partes = m.split('-');
+                const mesFormatadoBR = `${partes[1]}/${partes[0]}`;
+
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `
+                    <div>
+                        <strong>${mesFormatadoBR}</strong> 
+                        <span style="margin-left:15px; font-size:0.85rem; color:var(--text-muted);">Rec: ${formatarMoeda(item.receitas)}</span>
+                    </div>
+                    <button class="btn-toggle-pago" style="border-color:var(--neon-blue); color:var(--neon-blue);" onclick="carregarMesEspecifico('${m}')">👁 Ver Mês</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function carregarMesEspecifico(mesChave) {
+            document.getElementById('filtro-mes').value = mesChave;
+            filtrarPorMes();
+            fecharModalConfig();
+        }
+
+        // 5. METAS FINANCEIRAS
+        function adicionarMeta(e) {
+            e.preventDefault();
+            const nome = document.getElementById('meta-nome').value.trim();
+            const objetivo = parseFloat(document.getElementById('meta-objetivo').value) || 0;
+            const atual = parseFloat(document.getElementById('meta-atual').value) || 0;
+
+            metas.push({ id: Date.now(), nome, objetivo, atual });
+            document.getElementById('meta-form').reset();
+            
+            salvarDadosNoStorage();
+            renderizarMetas();
+        }
+
+        function excluirMeta(id) {
+            metas = metas.filter(m => m.id !== id);
+            salvarDadosNoStorage();
+            renderizarMetas();
+        }
+
+        function renderizarMetas() {
+            const container = document.getElementById('lista-metas-container');
+            container.innerHTML = '';
+
+            if (metas.length === 0) {
+                container.innerHTML = `<p style="text-align:center; font-size:0.9rem; color:var(--text-muted);">Nenhuma meta criada ainda.</p>`;
+                return;
+            }
+
+            metas.forEach(m => {
+                const percentual = Math.min((m.atual / m.objetivo) * 100, 100).toFixed(1);
+                const restante = Math.max(m.objetivo - m.atual, 0);
+
+                const div = document.createElement('div');
+                div.className = 'meta-card';
+                div.innerHTML = `
+                    <div class="meta-header-info">
+                        <span>🎯 ${m.nome}</span>
+                        <span style="color:var(--neon-blue)">${percentual}%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: ${percentual}%"></div>
+                    </div>
+                    <div class="meta-footer-info">
+                        <span>Alvo: ${formatarMoeda(m.objetivo)} | Guardado: ${formatarMoeda(m.atual)}</span>
+                        <span style="color:var(--neon-yellow)">Falta: ${formatarMoeda(restante)}</span>
+                    </div>
+                    <div style="text-align:right; margin-top:8px;">
+                        <button class="btn-icon btn-delete" style="font-size:0.9rem;" onclick="excluirMeta(${m.id})">🗑 Remover Meta</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // 6. EVOLUÇÃO EM GRÁFICOS (CHART.JS)
+        function carregarEvolucaoGraficos() {
+            const hist = JSON.parse(localStorage.getItem('fin_alexandre_historico_calculado')) || {};
+            const mesesEixoX = Object.keys(hist).sort();
+
+            const dadosReceitas = [];
+            const dadosDespesas = [];
+            const dadosSaldos = [];
+
+            mesesEixoX.forEach(m => {
+                dadosReceitas.push(hist[m].receitas || 0);
+                dadosDespesas.push(hist[m].despesas || 0);
+                dadosSaldos.push(hist[m].saldo || 0);
+            });
+
+            const labelsFormatadas = mesesEixoX.map(m => {
+                const p = m.split('-');
+                return `${p[1]}/${p[0]}`;
+            });
+
+            if (mixChartInstance) {
+                mixChartInstance.destroy();
+            }
+
+            const ctx = document.getElementById('financeiroChart').getContext('2d');
+            mixChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labelsFormatadas,
+                    datasets: [
+                        {
+                            label: 'Saldo Final',
+                            type: 'line',
+                            data: dadosSaldos,
+                            borderColor: '#00ff87',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#00ff87',
+                            tension: 0.3,
+                            fill: false
+                        },
+                        {
+                            label: 'Receitas',
+                            data: dadosReceitas,
+                            backgroundColor: 'rgba(0, 229, 255, 0.4)',
+                            borderColor: '#00e5ff',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Despesas',
+                            data: dadosDespesas,
+                            backgroundColor: 'rgba(255, 56, 96, 0.4)',
+                            borderColor: '#ff3860',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#e2e8f0' } }
+                    },
+                    scales: {
+                        x: { ticks: { color: '#94a3b8' }, grid: { color: '#232d45' } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#232d45' } }
+                    }
+                }
+            });
         }
     </script>
 </body>
